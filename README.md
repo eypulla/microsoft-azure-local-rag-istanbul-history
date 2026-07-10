@@ -4,9 +4,8 @@ A fully offline AI chatbot that answers questions about Istanbul's historical pl
 
 Built as part of the **Microsoft Azure AI Summer Program 2026**.
 
-![Istanbul Historical Guide]
+<img width="2630" height="1542" alt="Ekran görüntüsü 2026-07-10 142406" src="https://github.com/user-attachments/assets/75cc21cb-1f37-4171-bd58-557b14e1bf6d" />
 
-![Uploading Ekran görüntüsü 2026-07-10 142406.png…]()
 
 ## What It Does
 
