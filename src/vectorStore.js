@@ -36,14 +36,15 @@ export class VectorStore {
         category TEXT,
         chunk_index INTEGER NOT NULL,
         content TEXT NOT NULL,
-        tf_json TEXT NOT NULL
+        tf_json TEXT NOT NULL,
+        embedding_json TEXT
       );
       CREATE INDEX IF NOT EXISTS idx_doc_id ON chunks(doc_id);
     `);
 
     // Prepare reusable statements
     this._stmtInsert = this.db.prepare(
-      "INSERT INTO chunks (doc_id, title, category, chunk_index, content, tf_json) VALUES (?, ?, ?, ?, ?, ?)"
+    "INSERT INTO chunks (doc_id, title, category, chunk_index, content, tf_json, embedding_json) VALUES (?, ?, ?, ?, ?, ?, ?)"
     );
     this._stmtAll = this.db.prepare("SELECT * FROM chunks");
     this._stmtCount = this.db.prepare("SELECT COUNT(*) as cnt FROM chunks");
@@ -88,10 +89,11 @@ export class VectorStore {
   }
 
   /** Insert a single chunk. */
-  insert(docId, title, category, chunkIndex, content) {
+  insert(docId, title, category, chunkIndex, content, embedding = null) {
     const tf = termFrequency(content);
     const tfJson = JSON.stringify([...tf]);
-    this._stmtInsert.run(docId, title, category, chunkIndex, content, tfJson);
+    const embJson = embedding ? JSON.stringify(embedding) : null;
+    this._stmtInsert.run(docId, title, category, chunkIndex, content, tfJson, embJson);
     this._invalidateCache();
   }
 

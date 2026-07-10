@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-F7DF1E?logo=javascript&logoColor=000)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Node.js](https://img.shields.io/badge/Node.js-%E2%89%A5%2020-339933?logo=node.js&logoColor=fff)](https://nodejs.org/)
 [![Foundry Local](https://img.shields.io/badge/Foundry%20Local-On--Device%20AI-0078D4?logo=microsoft&logoColor=fff)](https://foundrylocal.ai)
@@ -341,3 +342,7 @@ This project is a scenario sample: you can fork it and adapt it to any domain:
 ## License
 
 MIT – This solution is a scenario sample for learning and experimentation.
+=======
+# microsoft-azure-local-rag-istanbul-history
+Local RAG chatbot built with Microsoft Foundry Local for the Azure AI Summer Program 2026 — answers questions about Istanbul's historical places using offline AI
+>>>>>>> 2f377babadbd7755c4d57b6182b7c65fa55d2739

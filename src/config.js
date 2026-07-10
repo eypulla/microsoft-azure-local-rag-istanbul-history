@@ -8,11 +8,10 @@ const ROOT = path.resolve(__dirname, "..");
 export const config = {
   // Model
   model: "phi-3.5-mini",
-
   // RAG
   docsDir: path.join(ROOT, "docs"),
   dbPath: path.join(ROOT, "data", "rag.db"),
-  chunkSize: 200,       // tokens (approx) – kept small for NPU compatibility
+  chunkSize: 400,       // tokens (approx) – kept small for NPU compatibility
   chunkOverlap: 25,     // tokens overlap between chunks
   topK: 3,              // number of chunks to retrieve – limited for NPU context window
 

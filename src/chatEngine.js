@@ -68,7 +68,7 @@ export class ChatEngine {
 
     // Create the native chat client with performance settings pre-configured
     this.chatClient = this.model.createChatClient();
-    this.chatClient.settings.temperature = 0.1; // Low for deterministic, safety-critical responses
+    this.chatClient.settings.temperature = 0.7; // Low for deterministic, safety-critical responses
     this._emitStatus("ready", `Model ready: ${this.modelAlias}`);
 
     // Open the local vector store
@@ -98,9 +98,37 @@ export class ChatEngine {
    * Retrieve relevant context from the local knowledge base.
    */
   retrieve(query) {
-    const topK = this.compactMode ? Math.min(config.topK, 3) : config.topK;
-    return this.store.search(query, topK);
-  }
+    const topK = this.compactMode ? Math.min(config.topK, 10) : config.topK;
+    const results = this.store.search(query, topK);
+    
+    // Soruda geçen ders adını bul (math 202, cs 204 gibi)
+    const courseMatch = query.toLowerCase().match(/(?:math|cs|dsa)\s*\d+/);
+    
+    if (courseMatch) {
+        const courseName = courseMatch[0].replace(/\s+/, '');  // "math202"
+        const allDocs = this.store.listDocs();
+        
+        // Adında hem "sllyabuses" hem de ders adı geçen dosyaları bul
+        const syllabusDocs = allDocs.filter(d => 
+            d.title.toLowerCase().includes('sllyabuses') &&
+            d.title.toLowerCase().replace(/\s+/, '').includes(courseName)
+        );
+        
+        // Bu dosyaların chunk'larını ekle
+        const seen = new Set(results.map(r => r.id));
+        for (const doc of syllabusDocs.slice(0, 2)) {
+            const chunks = this.store.search(doc.doc_id, 2);
+            for (const chunk of chunks) {
+                if (!seen.has(chunk.id)) {
+                    results.push(chunk);
+                    seen.add(chunk.id);
+                }
+            }
+        }
+    }
+    
+    return results;
+}
 
   /**
    * Format retrieved chunks into a context block for the prompt.
@@ -139,8 +167,7 @@ export class ChatEngine {
     ];
 
     // 3. Call the local model via the native chat client
-    this.chatClient.settings.maxTokens = this.compactMode ? 512 : 1024;
-    const response = await this.chatClient.completeChat(messages);
+    this.chatClient.settings.maxTokens = this.compactMode ? 300 : 800;    const response = await this.chatClient.completeChat(messages);
 
     return {
       text: response.choices[0].message.content,
@@ -175,7 +202,7 @@ export class ChatEngine {
     ];
 
     // 3. Stream from the local model via the SDK's callback-based streaming
-    this.chatClient.settings.maxTokens = this.compactMode ? 512 : 1024;
+    this.chatClient.settings.maxTokens = this.compactMode ? 200 : 400;
 
     // Buffer chunks from the callback and yield them as an async iterable
     const textChunks = [];
