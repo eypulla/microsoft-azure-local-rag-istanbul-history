@@ -69,8 +69,19 @@ The AI model (Phi-3.5 Mini, ~4GB) will download automatically on first run.
 | Word Reading | mammoth |
 | Frontend | HTML/CSS/JavaScript |
 
+## My Journey
+
+When I started this project, I had no idea what RAG was. Over the course of the program, I learned about it through the provided Microsoft resources and my own research — gradually understanding how retrieval, embeddings, vector stores, and language models work together.
+
+At one point, I thought: *"Could I use this for my own course notes?"* I tried adding my lecture PDFs and Word documents, but quickly realized most of my notes were handwritten or contained screenshots — which text-based RAG can't read. So I extended the original codebase to support PDF and .docx files, which was a real engineering challenge since the original project only handled markdown files.
+
+After that, I wanted a topic that would actually work well with text-based documents. I chose Istanbul's historical places — rich in history, full of stories, and something I find genuinely interesting. The result is this chatbot, which can tell you about Hagia Sophia, Galata Tower, Topkapi Palace, and more — all running completely offline on your own machine.
+
+This project taught me that the best way to learn something is to try to build it, hit real problems, and figure out how to solve them.
+
 ## Program
 
 This project was built by Nehir Eylül Balcı as part of the **Microsoft Azure AI Summer Program 2026** organized by Barbaros Günay, CSA Manager at Microsoft Turkey.
 
 Original project: [leestott/local-rag](https://github.com/leestott/local-rag)
+
