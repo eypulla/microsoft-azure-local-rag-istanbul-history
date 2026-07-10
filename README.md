@@ -37,6 +37,7 @@ This project is based on [leestott/local-rag](https://github.com/leestott/local-
 3. **Istanbul Historical Places theme** — custom UI with background photo slideshow
 4. **Dynamic backgrounds** — background changes based on which place you ask about
 5. **Improved system prompt** — tuned for historical Q&A
+6. **Embedding-based retrieval support** — added `embedding_json` column to SQLite and implemented `searchByEmbedding()` function in the vector store, laying the groundwork for semantic search to replace TF-IDF keyword matching
 
 ## How to Run
 
